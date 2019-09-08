@@ -1,13 +1,12 @@
 <template>
   <li class="image-card">
-    <img :src="image.url_n" :alt="image.title" class="image-card__image">
+    <img :src="imageUrl" :class="{skeleton: loading}" :alt="title" class="image-card__image">
     <div class="image-card__body">
-      <p v-if="image.title" class="image-title">{{image.title}}</p>
-      <p v-else class="image-title">No se ha encontrado ningún título</p>
-      <p class="image-owner">Foto de {{image.ownername}}</p>
+      <p :class="{skeleton: loading}" class="image-title">{{title}}</p>
+      <p :class="{skeleton: loading}" class="image-owner">Foto de {{byline}}</p>
       <section class="image-date-view-wrapper">
-        <p class="image-date">{{image.datetaken | moment}}</p>
-        <p class="image-views">Vistas: {{image.views}}</p>
+        <p class="image-date" :class="{skeleton: loading}">{{timestamp}}</p>
+        <p class="image-views" :class="{skeleton: loading}">Vistas: {{viewCount}}</p>
       </section>
     </div>
   </li>
@@ -16,12 +15,45 @@
 <script>
 import moment from 'moment';
 
+const TRANSPARENT_GIF = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
 export default {
   name: 'ImageCard',
-  props: ['image'],
+  props: {
+    image: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+  },
   filters: {
     moment(date) {
       return moment(date).format('MMMM Do YYYY');
+    },
+  },
+  computed: {
+    imageUrl() {
+      if (this.loading) return TRANSPARENT_GIF;
+
+      return this.image.url_n;
+    },
+    title() {
+      return this.image.title || 'Imagen sin título';
+    },
+    byline() {
+      return `Por ${this.image.ownername}.`;
+    },
+    timestamp() {
+      return moment(this.image.datataken).format('MMMM Do, YYYY');
+    },
+    viewCount() {
+      const viewOrViews = this.image.views === 1 ? 'view' : 'views';
+      return `${this.image.views} ${viewOrViews}`
     },
   },
 };
@@ -74,5 +106,28 @@ export default {
   .image-views {
     margin-bottom: 0;
     font-size: .8rem;
+  }
+  @keyframes skeleton-glow {
+    from {
+      background-color: rgba(206,217,224,.2);
+      background: rgba(206,217,224,.2);
+    }
+    to {
+      background-color: rgba(92,112,128,.2);
+      background: rgba(92,112,128,.2);
+    }
+  }
+  .skeleton {
+    animation: skeleton-glow 1s linear infinite alternate;
+    background-clip: border-box;
+    background-clip: padding-box !important;
+    background-color: rgba(206,217,224,.2) !important;
+    background: rgba(206,217,224,.2) !important;
+    border-radius: 2px;
+    box-shadow: none !important;
+    color: transparent !important;
+    cursor: default;
+    pointer-events: none;
+    user-select: none;
   }
 </style>

@@ -1,12 +1,13 @@
 <template>
     <div class="wrapper">
-      <p v-if="loading" class="text-centered">Cargando fotos...</p>
-      <div v-else>
-        <h1>Resultados para: "{{tag}}"</h1>
-        <ul class="image-card-grid">
-          <image-card v-for="image in cleanImages" :key="image.id" :image="image" />
-        </ul>
-      </div>
+      <h1>Resultados para: "{{tag}}"</h1>
+
+      <ul v-if="!loading" class="image-card-grid">
+        <image-card v-for="image in cleanImages" :key="image.id" :image="image" />
+      </ul>
+      <ul v-else class="image-card-grid">
+        <image-card v-for="n in 6" :key="n" :loading="true" />
+      </ul>
     </div>
 </template>
 
@@ -17,7 +18,7 @@ import flickr from '../flickr';
 import ImageCard from '@/components/ImageCard.vue';
 
 export default {
-  name: 'home',
+  name: 'searchResults',
   components: {
     ImageCard,
   },
@@ -35,15 +36,16 @@ export default {
   data() {
     return {
       loading: false,
-      tag: '',
       images: [],
     };
   },
   methods: {
     search() {
-      this.loading = true;
-      this.fetchImages();
-      this.loading = false;
+      if (!this.isTagEmpty) {
+        this.loading = true;
+        this.fetchImages();
+        this.loading = false;
+      }
     },
     fetchImages() {
       return flickr('photos.search', {
@@ -58,6 +60,9 @@ export default {
     },
   },
   computed: {
+    isTagEmpty() {
+      return !this.tag || this.tag.length === 0;
+    },
     cleanImages() {
       return this.images.filter(image => image.url_n);
     },
