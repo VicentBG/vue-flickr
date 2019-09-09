@@ -3,7 +3,7 @@
     <img :src="imageUrl" :class="{skeleton: loading}" :alt="title" class="image-card__image">
     <div class="image-card__body">
       <p :class="{skeleton: loading}" class="image-title">{{title}}</p>
-      <p :class="{skeleton: loading}" class="image-owner">Foto de {{byline}}</p>
+      <p :class="{skeleton: loading}" class="image-owner">{{byline}}</p>
       <section class="image-date-view-wrapper">
         <p class="image-date" :class="{skeleton: loading}">{{timestamp}}</p>
         <p class="image-views" :class="{skeleton: loading}">Vistas: {{viewCount}}</p>
