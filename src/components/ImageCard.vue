@@ -18,7 +18,7 @@ import moment from 'moment';
 const TRANSPARENT_GIF = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
 export default {
-  name: 'ImageCard',
+  name: 'imageCard',
   props: {
     image: {
       type: Object,
@@ -53,7 +53,7 @@ export default {
     },
     viewCount() {
       const viewOrViews = this.image.views === 1 ? 'view' : 'views';
-      return `${this.image.views} ${viewOrViews}`
+      return `${this.image.views} ${viewOrViews}`;
     },
   },
 };

@@ -24,9 +24,5 @@ export default {
             this.tag = '';
         },
     },
-}
+};
 </script>
-
-<style>
-
-</style>
