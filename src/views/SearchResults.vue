@@ -132,7 +132,6 @@ export default {
     border-radius: 20px;
     outline: none;
     font-size: 1rem;
-    background: transparent;
     border: none;
     cursor: pointer;
   }

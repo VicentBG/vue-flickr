@@ -4,7 +4,7 @@
     <ul class="place-list">
         <li 
         v-for="(place, index) in popularPlaces" 
-        :key="place.place_id" 
+        :key="index" 
         class="place-list__item">
             <button 
             @click="updateSelectedPlaceIndex(index)"
@@ -28,7 +28,7 @@
     </ul>
     <p class="centered">
         <router-link 
-        :to="{name:'searchResults', params: {tag: selectedPlace.name}}"
+        :to="{name:'searchResults', params: {tag: selectedPlace.tags}}"
         class="btn btn--dark-grey more-photos">
         Más fotos de {{ selectedPlace.name }}
         </router-link>
@@ -59,28 +59,28 @@ export default {
             selectedPlaceIndex: 0,
             popularPlaces: [
                 {
-                    name: 'Agra',
-                    place_id: 'S4OOvxtTULO18fQG'
+                    name: 'Penyó de Ifach',
+                    tags: 'ifach'
                 },
                 {
-                    name: 'Bali',
-                    place_id: 'lm4_wrhTUb4oe5pO'
+                    name: 'París',
+                    tags: 'paris'
                 },
                 {
-                    name: 'Rio de Janeiro',
-                    place_id: 'mAqmHW5VV78OT5o'
+                    name: 'Cuba',
+                    tags: 'cuba'
                 },
                 {
-                    name: 'Paris',
-                    place_id: 'EsIQUYZXU79_kEA'
+                    name: 'Antártida',
+                    tags: 'antartida'
                 },
                 {
-                    name: 'Tokyo',
-                    place_id: 'FRthiQZQU7uKHvmP'
+                    name: 'Desierto del Sahara',
+                    tags: 'sahara'
                 },
                 {
-                    name: 'Tolanaro',
-                    place_id: 'qdHKy7VQUbxPQVBX'
+                    name: 'La Luna',
+                    tags: 'moon'
                 }
             ],
         };
@@ -97,7 +97,7 @@ export default {
         fetchPlacePhotos() {
             this.loading = true;
             flickr('photos.search', {
-                place_id: this.selectedPlace.place_id,
+                tags: this.selectedPlace.tags,
                 extras: 'url_n, owner_name, description, date_taken, views',
                 page: 1,
                 per_page: 3,
@@ -118,7 +118,7 @@ export default {
 </script>
 
 <style lang="scss">
-    .btn--dark-gray {
+    .btn--dark-grey {
         background: #2c3e50;
         color: white;
         text-decoration: none;
