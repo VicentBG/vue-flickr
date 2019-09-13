@@ -1,14 +1,16 @@
 <template>
   <li class="image-card">
-    <img :src="imageUrl" :class="{skeleton: loading}" :alt="title" class="image-card__image">
-    <div class="image-card__body">
-      <p :class="{skeleton: loading}" class="image-title">{{title}}</p>
-      <p :class="{skeleton: loading}" class="image-owner">{{byline}}</p>
-      <section class="image-date-view-wrapper">
-        <p class="image-date" :class="{skeleton: loading}">{{timestamp}}</p>
-        <p class="image-views" :class="{skeleton: loading}">Vistas: {{viewCount}}</p>
-      </section>
-    </div>
+    <router-link class="image-card__link" :to="{name: 'imageDetail', params: {id: image.id}}">
+      <img :src="imageUrl" :class="{skeleton: loading}" :alt="title" class="image-card__image">
+      <div class="image-card__body">
+        <p :class="{skeleton: loading}" class="image-title">{{title}}</p>
+        <p :class="{skeleton: loading}" class="image-owner">{{byline}}</p>
+        <section class="image-date-view-wrapper">
+          <p class="image-date" :class="{skeleton: loading}">{{timestamp}}</p>
+          <p class="image-views" :class="{skeleton: loading}">Vistas: {{viewCount}}</p>
+        </section>
+      </div>
+    </router-link>
   </li>
 </template>
 
@@ -73,6 +75,10 @@ export default {
       width: 100%;
       margin: .5rem 0;
     }
+  }
+  .image-card__link {
+    text-decoration: none;
+    color: inherit;
   }
   .image-card__image {
     border-radius: 5px 5px 0 0;

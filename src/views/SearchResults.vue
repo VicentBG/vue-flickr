@@ -96,37 +96,7 @@ export default {
     align-items: flex-start;
     flex-wrap: wrap;
   }
-  .navbar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    background: #f0f0f0;
-  }
-  .searchbar {
-    width: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    @media only screen and (max-width: 549px) {
-      max-width: 100%;
-      label {
-        width: 80%;
-      }
-    }
-  }
-  .searchbar-input {
-    padding: .5rem 1rem;
-    border-radius: 20px;
-    font-size: 1rem;
-    border: 1px solid gray;
-    outline: none;
-    min-width: 300px;
-    @media only screen and (max-width: 549px) {
-      min-width: 0;
-      width: 100%;
-    }
-  }
+  
   .btn {
     padding: .5rem 1rem;
     border-radius: 20px;
